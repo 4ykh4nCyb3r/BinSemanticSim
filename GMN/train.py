@@ -1,3 +1,4 @@
+from binary_dataset import BinaryDataset
 from evaluation import compute_similarity, auc
 from loss import pairwise_loss, triplet_loss
 from utils import *
@@ -28,7 +29,10 @@ torch.backends.cudnn.deterministic = False
 torch.backends.cudnn.benchmark = True
 
 
-training_set, validation_set = build_datasets(config)
+#training_set, validation_set = build_datasets(config)
+my_binary_data = BinaryDataset('dissect-v1-extracted.json', 'dissect-v2-extracted.json')
+training_set = my_binary_data
+validation_set = my_binary_data
 
 if config['training']['mode'] == 'pair':
     training_data_iter = training_set.pairs(config['training']['batch_size'])
